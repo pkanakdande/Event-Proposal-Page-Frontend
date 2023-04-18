@@ -1,0 +1,23 @@
+{
+  "name": "event-proposal-page-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asfarkhan07/Event-Proposal-Page-Frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asfarkhan07/Event-Proposal-Page-Frontend/issues"
+  },
+  "homepage": "https://github.com/asfarkhan07/Event-Proposal-Page-Frontend#readme",
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
