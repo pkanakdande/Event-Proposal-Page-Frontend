@@ -1,12 +1,19 @@
 
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Vendorhome from './components/Vendorhome';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      Hello World
-    </div>
-  );
+  return (<>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Vendorhome/>} />
+        
+      </Routes>
+    </BrowserRouter>
+  </>)
 }
 
 export default App;
