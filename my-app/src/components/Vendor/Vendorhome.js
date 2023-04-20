@@ -1,10 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Vendorhome.css";
 import Home from "../Home/Home";
 import Userhome from "../User/Userhome";
 
 function VendorHome() {
+
+ 
+  const [formData,setFormData]=useState({
+    email:"",
+    password:""
+  })
+ 
+
+  function updateData(e,propName){
+    let temp=e.target.value
+    setFormData(data =>({
+     ...data,[propName]:temp
+    }))
+    
+     }
+  // function updateData(e,[propName]){
+  //   let temp=e.target.value
+  //   setFormData(data => ({
+  //     ...data,[propName]: temp
+  //   }))
+  // }
+
+  async function submitted(e){
+    e.preventDefault()
+    // const data=new FormData(e.target)
+    console.log(formData)
+
+
+     fetch("http://localhost:4000/user/login",{
+      method:"POST",
+      headers:{"content-type":"application/json","accept":"application/json"},
+      body:JSON.stringify(formData)
+      
+  })
+  .then((data)=>data.json())
+  .then((responce)=>console.log(responce))
+  .catch((error)=>console.log(error.message))
+   }
+
     return (<>
         <Home/>
         <div className="Logo">LOGO</div>
@@ -19,14 +58,16 @@ function VendorHome() {
             <h2>Sign in your Account</h2>
           </div>
           <div className="form">
-            <form method="post">
+            <form method="post" onSubmit={submitted}>
               <div className="input">
                 {" "}
-                <input type="name" placeholder="Phone/Email" />{" "}
+                <input type="name" name="email" placeholder="Phone/Email" 
+                 onChange={e=>updateData(e,"email")} />{" "}
               </div>
               <div className="input">
                 {" "}
-                <input type="password" placeholder="Password" />{" "}
+                <input type="password" placeholder="Password" name="password"
+                onChange={e=>updateData(e,"password")}  />{" "}
               </div>
               <div className="forget">
                 {" "}
