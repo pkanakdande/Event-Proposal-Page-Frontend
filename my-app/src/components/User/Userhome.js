@@ -1,8 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Home from '../Home/Home'
 
 function Userhome() {
+
+  const [regData,setRegData]=useState({
+    email:'',
+    password:""
+  })
+
+  function changeData(e,propName){
+    let temp=e.target.value
+    setRegData(data =>({
+     ...data,[propName]:temp
+    }))
+    
+     }
+
+     async function regsubmit(e){
+      e.preventDefault()
+      // const data=new FormData(e.target)
+      console.log(regData)
+
+
+       fetch("http://localhost:4000/user/login",{
+        method:"POST",
+        headers:{"content-type":"application/json","accept":"application/json"},
+        body:JSON.stringify(regData)
+        
+    })
+   
+    .then((data)=>data.json())
+    .then((responce)=>console.log(responce))
+    
+    .catch((error)=>console.log(error.message))
+     }
+
+
+
   return (
     <div>
         <Home/>
@@ -18,14 +53,16 @@ function Userhome() {
             <h2>Sign in your Account</h2>
           </div>
           <div className="form">
-            <form method="post">
+            <form method="post" onSubmit={regsubmit}>
               <div className="input">
                 {" "}
-                <input type="name" placeholder="Phone/Email" />{" "}
+                <input type="text" placeholder="Phone/Email" name='email'
+                 onChange={e=>changeData(e,"name")} />{" "}
               </div>
               <div className="input">
                 {" "}
-                <input type="password" placeholder="Password" />{" "}
+                <input type="password" placeholder="Password" name='password'
+                onChange={e=>changeData(e,"password")} />{" "}
               </div>
               <div className="forget">
                 {" "}
