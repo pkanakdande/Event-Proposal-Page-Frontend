@@ -37,9 +37,10 @@ function Userhome() {
                   {" "}
                   <Link to="/createuseraccount" style={{textDecoration:'none'}}>Create Account</Link>{" "}
                 </div>
-                <button className="button" type="submit">
-                  SIGN IN
+                  <Link to='/Userproposals' style={{textDecoration:'none',color:'white'}}>
+                <button className="button" type="submit">Sign In
                 </button>
+                  </Link>
               </div>
             </form>
           </div>
