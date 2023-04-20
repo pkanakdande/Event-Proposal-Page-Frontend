@@ -38,9 +38,11 @@ function VendorHome() {
                   {" "}
                   <Link to="/createvendoraccount" style={{textDecoration:'none'}}>Create Account</Link>{" "}
                 </div>
+                <Link to='/VendorProposal'>
                 <button className="button" type="submit">
                   SIGN IN
                 </button>
+                </Link>
               </div>
             </form>
           </div>
