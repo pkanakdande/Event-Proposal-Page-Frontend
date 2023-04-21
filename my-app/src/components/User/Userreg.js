@@ -22,26 +22,26 @@ function Userreg() {
             <h2>Register in your account</h2>
           </div>
           <div className="form">
-            <form method="post">
+            <form method="post" style={{margin:'0px 0px 0px 0px'}}>
                 <div className="input">
                     {" "}
-                    <input type="text" placeholder="Name"/>
+                    <input type="text" placeholder="Name" style={{width:'86%'}}/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="email" placeholder="Email"/>
+                    <input type="email" placeholder="Email" style={{width:'86%'}}/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="number" placeholder="Contact"/>
+                    <input type="number" placeholder="Contact" style={{width:'86%'}}/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="password" placeholder="Password"/>
+                    <input type="password" placeholder="Password" style={{width:'86%'}}/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="password" placeholder="Confirm Password"/>
+                    <input type="password" placeholder="Confirm Password" style={{width:'86%'}}/>
                 </div>
 
                 <div className="regfooter">

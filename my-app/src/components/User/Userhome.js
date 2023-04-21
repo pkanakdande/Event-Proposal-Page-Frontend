@@ -21,11 +21,11 @@ function Userhome() {
             <form method="post">
               <div className="input">
                 {" "}
-                <input type="name" placeholder="Phone/Email" />{" "}
+                <input type="name" placeholder="Phone/Email" style={{width:'300px'}}/>{" "}
               </div>
               <div className="input">
                 {" "}
-                <input type="password" placeholder="Password" />{" "}
+                <input type="password" placeholder="Password" style={{width:'300px'}} />{" "}
               </div>
               <div className="forget">
                 {" "}
