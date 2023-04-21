@@ -4,39 +4,44 @@ import Home from '../Home/Home'
 
 function Userhome() {
 
-  const [regData,setRegData]=useState({
-    email:'',
-    password:""
+  // const [email,setEmail]=useState("")
+  // const [password,setPassword]=useState("")
+
+  const [regdata,setregData]=useState({
+    name:"",
+    email:"",
+    contact:"",
+    password:"",
+    conformpassword:""
   })
 
-  function changeData(e,propName){
+  function setRegData(e,propName){
     let temp=e.target.value
-    setRegData(data =>({
+    setregData(data =>({
      ...data,[propName]:temp
     }))
     
      }
+     
 
-     async function regsubmit(e){
+     async function changeData(e){
       e.preventDefault()
       // const data=new FormData(e.target)
-      console.log(regData)
+      console.log(regdata)
 
 
        fetch("http://localhost:4000/user/login",{
         method:"POST",
         headers:{"content-type":"application/json","accept":"application/json"},
-        body:JSON.stringify(regData)
+        body:JSON.stringify(regdata)
         
     })
-   
     .then((data)=>data.json())
     .then((responce)=>console.log(responce))
-    
     .catch((error)=>console.log(error.message))
      }
-
-
+    
+    
 
   return (
     <div>
@@ -53,26 +58,26 @@ function Userhome() {
             <h2>Sign in your Account</h2>
           </div>
           <div className="form">
-            <form method="post" onSubmit={regsubmit}>
+            <form method="post" onSubmit={changeData}>
               <div className="input">
                 {" "}
                 <input type="text" placeholder="Phone/Email" name='email'
-                 onChange={e=>changeData(e,"name")} />{" "}
+                 onChange={e=>setRegData(e,"email")} />
               </div>
               <div className="input">
                 {" "}
                 <input type="password" placeholder="Password" name='password'
-                onChange={e=>changeData(e,"password")} />{" "}
+                onChange={e=>setRegData(e,"password")}  />
               </div>
               <div className="forget">
                 {" "}
-                <Link to="/forgetPassword" style={{textDecoration:'none'}}>Forget Password</Link>{" "}
+                <Link to="/forgetPassword" style={{textDecoration:'none'}}>Forget Password</Link>
               </div>
 
               <div className="footer">
                 <div className="create">
                   {" "}
-                  <Link to="/createuseraccount" style={{textDecoration:'none'}}>Create Account</Link>{" "}
+                  <Link to="/createuseraccount" style={{textDecoration:'none'}}>Create Account</Link>
                 </div>
                 <button className="button" type="submit">
                   SIGN IN
@@ -83,6 +88,12 @@ function Userhome() {
         </div>
     </div>
   )
-}
+  }
 
 export default Userhome
+
+
+
+
+
+ 
