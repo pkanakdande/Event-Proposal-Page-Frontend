@@ -2,7 +2,7 @@ import React from "react";
 import "./VendorProp.css";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({logout} ) {
   return (
     <div className="nav">
       <div className="venlogo">
@@ -14,7 +14,7 @@ function Navbar() {
       <div class="dropdown">
         <div className="imgven"></div>
         <div class="dropdown-content">
-          <Link to="/">Log Out</Link>
+          <Link onClick={logout} to="/">Log Out</Link>
         </div>
       </div>
     </div>
