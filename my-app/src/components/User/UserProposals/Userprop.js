@@ -1,8 +1,12 @@
-import React from 'react'
-import UserNav from './UserNav'
-import Proposal from './Proposal'
+import React, { useEffect } from 'react';
+import UserNav from './UserNav';
+import Proposal from './Proposal';
+import { useNavigate } from "react-router-dom";
+
+
 
 function Userprop() {
+    const navigate = useNavigate();
     const proposal=[
         {
             image:'../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg',
@@ -40,6 +44,12 @@ function Userprop() {
             location:'Banglore'
         }
     ]
+    useEffect(()=>{
+        if(!localStorage.getItem("token")){
+            navigate('/User')
+          }
+    },[])
+    
 
 
   return (

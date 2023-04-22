@@ -3,8 +3,10 @@ import Navbar from "./Navbar";
 import Events from "./Events";
 import "./VendorProp.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function VendorProp() {
+  const navigate = useNavigate();
  const [vendorName , setVendorName] = useState("")
  const getVendorData = () =>{
   fetch("/vendordata",{
@@ -37,6 +39,9 @@ function VendorProp() {
 
   useEffect(()=>{
         getVendorData();
+        if(!localStorage.getItem("token")){
+          navigate('/')
+        }
   },[])
 
   const events = [
