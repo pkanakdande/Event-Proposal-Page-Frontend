@@ -43,7 +43,8 @@ function VendorHome() {
   })
   .then((res)=>res.json())
   .then((data)=>{
-     localStorage.setItem('token', data.data)
+     localStorage.setItem('vendorToken', data.data);
+     localStorage.setItem('vendorloggedIn',true);
      if (data.status == "ok")
      {
       alert("login Successful")

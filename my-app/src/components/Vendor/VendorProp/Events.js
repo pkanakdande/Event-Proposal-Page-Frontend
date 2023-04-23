@@ -1,7 +1,12 @@
 import React from "react";
 import "./Events.css";
+import { Link } from "react-router-dom";
+import editIcon from "../../../images/pencil-edit-button.jpg";
+import deleteIcon from "../../../images/bin.jpg";
+
 
 function Events(props) {
+ 
   return (
     <div className="event-container">
       <div className="eventname">
@@ -30,8 +35,8 @@ function Events(props) {
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Budget</p>{props.data.budget}
         </div>{" "}
         <div className="eventimg">
-          <div className="editimg"></div>
-          <div className="deleteimg"></div>
+          <div className="editimg" >   <Link to='/createproposal' ><img src={editIcon}></img> </Link></div>
+          <div className="deleteimg"> <img src={deleteIcon}></img></div>
         </div>
       </div>
     </div>

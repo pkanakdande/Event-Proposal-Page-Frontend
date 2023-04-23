@@ -7,14 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 function VendorProp() {
   const navigate = useNavigate();
- const [vendorName , setVendorName] = useState("")
+  const [proposals , setProposals] = useState([]);
+ const [vendorName , setVendorName] = useState("");
  const getVendorData = () =>{
   fetch("/vendordata",{
     method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
     body:JSON.stringify({
-      token: localStorage.getItem("token"),
+      token: localStorage.getItem("VendorToken"),
     }
     )
 })
@@ -31,15 +32,26 @@ function VendorProp() {
   console.log(err)})
  }
 
- const logout=()=> {
-   localStorage.clear();
-
+ const getProposals =() =>{
+  fetch("/proposals",{
+    method:"GET",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    
+})
+.then((res)=>res.json())
+.then((data) =>{
+  setProposals(data.data)
+  console.log(proposals)})
+  .catch((err)=>{
+  console.log(err)})
  }
 
 
   useEffect(()=>{
-        getVendorData();
-        if(!localStorage.getItem("token")){
+        // getVendorData();
+         getProposals();
+        if(!localStorage.getItem("vendorToken")){
           navigate('/')
         }
   },[])
@@ -76,7 +88,7 @@ function VendorProp() {
 
   return (
     <div>
-      <Navbar logout={logout}/>
+      <Navbar/>
       <div className="propcontainer">
         <div className="container1">
           <div className="proposal">
