@@ -5,34 +5,34 @@ import editIcon from "../../../images/pencil-edit-button.jpg";
 import deleteIcon from "../../../images/bin.jpg";
 
 
-function Events(props) {
+function Events({data}) {
  
   return (
     <div className="event-container">
       <div className="eventname">
-        {props.data.eventname}<br />
-        {props.data.eventext}
+        {data.eventName}<br />
+        {data.description}
       </div>
 
       <div className="eventdetails">
         <div className="eventtype">
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Event Type</p>
-          {props.data.eventtype}
+          {data.eventType}
         </div>
         <div className="proposaltype">
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Proposal Type</p>
-          {props.data.proposaltype}
+          {data.proposalType}
         </div>
         <div className="fromdate">
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>From Date</p>
-          {props.data.fromdate}
+          {data.fromDate}
         </div>
         <div className="todate">
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>To Date</p>
-          {props.data.todate}
+          {data.toDate}
         </div>
         <div className="budget">
-          <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Budget</p>{props.data.budget}
+          <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Budget</p>{data.budget}
         </div>{" "}
         <div className="eventimg">
           <div className="editimg" >   <Link to='/createproposal' ><img src={editIcon}></img> </Link></div>

@@ -41,12 +41,11 @@ function VendorProp() {
 })
 .then((res)=>res.json())
 .then((data) =>{
-  setProposals(data.data)
-  console.log(proposals)})
+  setProposals(data)
+  })
   .catch((err)=>{
   console.log(err)})
  }
-
 
   useEffect(()=>{
         // getVendorData();
@@ -106,8 +105,8 @@ function VendorProp() {
           </div>
         </div>
         <div className="container2">
-          {events.map((item, i) => {
-            return <Events data={item} />;
+          {proposals.map((item) => {
+            return <Events key={item._id}  id={item.id} data={item} />;
           })}
         </div>
       </div>
