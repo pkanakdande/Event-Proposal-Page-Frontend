@@ -55,36 +55,7 @@ function VendorProp() {
         }
   },[])
 
-  const events = [
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "20000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-  ];
-
+ 
   return (
     <div>
       <Navbar/>
@@ -106,7 +77,7 @@ function VendorProp() {
         </div>
         <div className="container2">
           {proposals.map((item) => {
-            return <Events key={item._id}  id={item.id} data={item} />;
+            return <Events key={item._id}  id={item._id} data={item} />;
           })}
         </div>
       </div>

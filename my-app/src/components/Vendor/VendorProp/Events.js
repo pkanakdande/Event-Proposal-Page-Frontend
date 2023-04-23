@@ -5,8 +5,34 @@ import editIcon from "../../../images/pencil-edit-button.jpg";
 import deleteIcon from "../../../images/bin.jpg";
 
 
-function Events({data}) {
- 
+
+
+function Events({data,id}) {
+  
+  let Id = id
+  console.log(Id)
+  
+   async function deleteEvent(){
+    fetch("/deleteproposal",{
+      method:"DELETE",
+      crossDoamin : true,
+      headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+      body:JSON.stringify(Id)
+  })
+  .then((res)=>res.json())
+  .then((data)=>{
+  
+    console.log(data);
+   
+   console.log()
+   })
+   
+  
+  .catch((err)=>{
+    console.log(err)})
+   }
+  
+
   return (
     <div className="event-container">
       <div className="eventname">
@@ -36,7 +62,7 @@ function Events({data}) {
         </div>{" "}
         <div className="eventimg">
           <div className="editimg" >   <Link to='/createproposal' ><img src={editIcon}></img> </Link></div>
-          <div className="deleteimg"> <img src={deleteIcon}></img></div>
+          <div className="deleteimg"> <img src={deleteIcon} onClick={deleteEvent} ></img></div>
         </div>
       </div>
     </div>

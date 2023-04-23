@@ -126,7 +126,8 @@ function Form() {
         </div>
         <div className="containerform2">
           <div style={{ height: "275px" }}>
-            <p>Images</p>
+          <p className="zupp">Images <button>Add</button><input type="file" name="Add"/></p>
+
             <div className="containerform2grid">
               <div style={{ border: "2px solid black" }}>
                 <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
