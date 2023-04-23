@@ -1,8 +1,6 @@
 import React from "react";
 import "./Form.css";
-import Dropdown from "./Dropdown";
-import Dropdown1 from "./Dropdown1";
-import Dropdown2 from "./Dropdown2";
+
 
 function Form() {
   return (
@@ -17,11 +15,41 @@ function Form() {
             <input type="text" style={{ width: "467px" }} />
           </div>
           <div className="placeofeventdropdown">
-            <Dropdown />
-            <Dropdown1 />
+            <div style={{ marginRight: "153px" }}>
+              <p>Place of Event</p>
+              <select
+                name="place of event"
+                style={{ width: "165px", height: "38px" }}
+              >
+                <option value=""></option>
+                <option value="marriage">Banglore</option>
+                <option value="birthday">Delhi</option>
+              </select>
+            </div>
+            <div style={{ marginRight: "153px" }}>
+              <p>Proposal Type</p>
+              <select
+                name="proposal type"
+                style={{ width: "165px", height: "38px" }}
+              >
+                <option value=""></option>
+                <option value="marriage">Marriage</option>
+                <option value="birthday">Birthday</option>
+              </select>
+            </div>
           </div>
           <div style={{ display: "flex" }}>
-            <Dropdown2 />
+            <div style={{ marginRight: "153px" }}>
+              <p>Event Type</p>
+              <select
+                name="event type"
+                style={{ width: "165px", height: "38px" }}
+              >
+                <option value=""></option>
+                <option value="marriage">Marriage</option>
+                <option value="birthday">Birthday</option>
+              </select>
+            </div>
             <div>
               <p>Budget</p>
               <input
@@ -51,20 +79,18 @@ function Form() {
             <p>Images</p>
             <div className="containerform2grid">
               <div style={{ border: "2px solid black" }}>
-                <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
+                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
               </div>
               <div style={{ border: "2px solid black" }}>
-              <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
+                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
               </div>
               <div style={{ border: "2px solid black" }}>
-              <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
+                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
               </div>
               <div style={{ border: "2px solid black" }}>
-              <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
+                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
               </div>
-              <div style={{ border: "2px solid black" }}>
-                
-              </div>
+              <div style={{ border: "2px solid black" }}></div>
               <div style={{ border: "2px solid black" }}></div>
               <div style={{ border: "2px solid black" }}></div>
               <div style={{ border: "2px solid black" }}></div>
@@ -81,7 +107,7 @@ function Form() {
             <input type="text" style={{ width: "525px", height: "116px" }} />
           </div>
         </div>
-        <button style={{margin: '20px 3px 0px 482px'}}>Add</button>
+        <button style={{ margin: "20px 3px 0px 482px" }}>Add</button>
       </form>
     </div>
   );
