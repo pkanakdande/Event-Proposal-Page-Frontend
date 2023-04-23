@@ -11,8 +11,8 @@ function Dropdown() {
       <select name="place of event" style={{width: '165px',
     height: '38px'}}>
         <option value=""></option>
-        <option value="marriage">Marriage</option>
-        <option value="birthday">Birthday</option>      
+        <option value="marriage">Banglore</option>
+        <option value="birthday">Delhi</option>      
       </select>
     </div>
   );
