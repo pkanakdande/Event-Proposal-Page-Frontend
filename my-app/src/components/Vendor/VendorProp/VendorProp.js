@@ -7,14 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 function VendorProp() {
   const navigate = useNavigate();
- const [vendorName , setVendorName] = useState("")
+  const [proposals , setProposals] = useState([]);
+ const [vendorName , setVendorName] = useState("");
  const getVendorData = () =>{
   fetch("/vendordata",{
     method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
     body:JSON.stringify({
-      token: localStorage.getItem("token"),
+      token: localStorage.getItem("VendorToken"),
     }
     )
 })
@@ -31,52 +32,33 @@ function VendorProp() {
   console.log(err)})
  }
 
- const logout=()=> {
-   localStorage.clear();
-
+ const getProposals =() =>{
+  fetch("/proposals",{
+    method:"GET",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    
+})
+.then((res)=>res.json())
+.then((data) =>{
+  setProposals(data)
+  })
+  .catch((err)=>{
+  console.log(err)})
  }
 
-
   useEffect(()=>{
-        getVendorData();
-        if(!localStorage.getItem("token")){
+        // getVendorData();
+         getProposals();
+        if(!localStorage.getItem("vendorToken")){
           navigate('/')
         }
   },[])
 
-  const events = [
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "20000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-  ];
-
+ 
   return (
     <div>
-      <Navbar logout={logout}/>
+      <Navbar/>
       <div className="propcontainer">
         <div className="container1">
           <div className="proposal">
@@ -94,8 +76,8 @@ function VendorProp() {
           </div>
         </div>
         <div className="container2">
-          {events.map((item, i) => {
-            return <Events data={item} />;
+          {proposals.map((item) => {
+            return <Events key={item._id}  id={item._id} data={item} />;
           })}
         </div>
       </div>
