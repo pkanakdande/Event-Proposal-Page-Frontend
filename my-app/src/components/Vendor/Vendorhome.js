@@ -44,11 +44,11 @@ function VendorHome() {
   .then((res)=>res.json())
   .then((data)=>{
      localStorage.setItem('token', data.data)
-     if (data.status == "ok")
+     if (data.status === "ok")
      {
       alert("login Successful")
       navigate("/VendorProposal")
-     }if (data.status == "error"){
+     }if (data.status === "error"){
       alert(`${data.error}`)
     }
      
