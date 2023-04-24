@@ -1,37 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Events.css";
 import { Link } from "react-router-dom";
 import editIcon from "../../../images/pencil-edit-button.jpg";
 import deleteIcon from "../../../images/bin.jpg";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 function Events({data,id}) {
   
-  let Id = id
-  console.log(Id)
+  const navigate = useNavigate();
   
-   async function deleteEvent(){
+  // const [proposalData,setData] = useState(data);
+   
+   async function deleteEvent(id){
+    let Id = {id};
+     
     fetch("/deleteproposal",{
       method:"DELETE",
       crossDoamin : true,
       headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
       body:JSON.stringify(Id)
+      
   })
   .then((res)=>res.json())
   .then((data)=>{
-  
+    alert("Proposal Deleted")
+    
+    
     console.log(data);
+    
    
-   console.log()
    })
    
   
   .catch((err)=>{
     console.log(err)})
    }
-  
+  useEffect(() =>{
+    
+
+  },[])
 
   return (
     <div className="event-container">
@@ -61,8 +71,8 @@ function Events({data,id}) {
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Budget</p>{data.budget}
         </div>{" "}
         <div className="eventimg">
-          <div className="editimg" >   <Link to='/createproposal' ><img src={editIcon}></img> </Link></div>
-          <div className="deleteimg"> <img src={deleteIcon} onClick={deleteEvent} ></img></div>
+          <div className="editimg" >    <img  src={editIcon}></img> </div>
+          <div className="deleteimg"> <img src={deleteIcon}  onClick={ () => deleteEvent(id) } ></img></div>
         </div>
       </div>
     </div>
