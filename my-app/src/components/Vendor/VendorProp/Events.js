@@ -10,7 +10,7 @@ import deleteIcon from "../../../images/bin.jpg";
 function Events({data,id}) {
   
   let Id = id
-  console.log(Id)
+  // console.log(Id)
   
    async function deleteEvent(){
     fetch("/deleteproposal",{

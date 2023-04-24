@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserNav from './UserNav';
 import Proposal from './Proposal';
 import { useNavigate } from "react-router-dom";
@@ -7,44 +7,37 @@ import { useNavigate } from "react-router-dom";
 
 function Userprop() {
     const navigate = useNavigate();
-    const proposal=[
-        {
-            image:'../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg',
-            vendorname:'Vendor Name',
-            budget:'23000',
-            location:'Banglore'
-        },
-        {
-            image:'../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg',
-            vendorname:'Vendor Name',
-            budget:'23000',
-            location:'Patna'
-        },
-        {
-            image:'../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg',
-            vendorname:'Vendor Name',
-            budget:'23000',
-            location:'Delhi'
-        },{
-            image:'../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg',
-            vendorname:'Vendor Name',
-            budget:'23000',
-            location:'Banglore'
-        },
-        {
-            image:'../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg',
-            vendorname:'Vendor Name',
-            budget:'23000',
-            location:'Banglore'
-        },
-        {
-            image:'../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg',
-            vendorname:'Vendor Name',
-            budget:'23000',
-            location:'Banglore'
-        }
-    ]
+    const [proposal,setProposal]=useState({})
+    const [vendor,setVendor]=useState([]);
+
+  
+    // console.log(proposal);
+
+ 
+
+    const getvendorProposaldata = () => {
+        fetch("/vendordataandproposal", {
+          method: "GET",
+          crossDoamin: true,
+          headers: {
+            "content-type": "application/json",
+            accept: "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setProposal(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      };
+
+     
+
     useEffect(()=>{
+        getvendorProposaldata();
         if( !localStorage.getItem("vendorToken") && !localStorage.getItem("userToken")){
             navigate('/User')
           }
@@ -64,15 +57,19 @@ function Userprop() {
       <UserNav logout={logout}/>
       <div className='userimg'></div>
       <div className='proposalcontainer'>
+
+        {/* {proposal?.vendordata && <div>Hello</div>} */}
         {
-            proposal.map((item,i)=>{
-                return <Proposal data={item}/>
+            proposal?.vendordata.map((item, index)=>{
+                return (
+                <div key={index}><Proposal vendordata={item} proposaldata={proposal?.proposaldata[index]} /></div>
+                )
             })
         }
         
       </div>
     </div>
   )
-}
+    }
 
 export default Userprop
