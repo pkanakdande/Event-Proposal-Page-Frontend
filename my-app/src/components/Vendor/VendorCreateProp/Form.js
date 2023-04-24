@@ -5,12 +5,14 @@ import { useState } from "react";
 
 function Form() {
   const navigate = useNavigate();
-
+  
   const [regForm,setRegForm]=useState({
-    eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "",images : ""
+    eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "",token: localStorage.getItem("vendorToken")
    
   })
   
+  
+
   function updateData(e,propName){
     let temp=e.target.value
     setRegForm(data =>({
@@ -28,14 +30,17 @@ function Form() {
         method:"POST",
         crossDoamin : true,
         headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
-        body:JSON.stringify(regForm)
+        body:JSON.stringify(regForm),
+      
+        
+        
         
     })
     .then((res)=>res.json())
     .then((data)=>{
       if (data.status == "ok")
       {
-       alert("registration Successful")
+       alert("Proposal Created")
        navigate("/VendorProposal")
       }
       if (data.status == "error"){
@@ -45,8 +50,28 @@ function Form() {
     
     .catch((err)=>{
       console.log(err)})
+
+    //   fetch("/uploadimage",{
+    //     method:"POST",
+    //     crossDoamin : true,
+    //     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    //     body:JSON.stringify({
+    //       base64: image
+    //     }),
+    // })
+    // .then((res)=>res.json())
+    // .then((data)=>{
+      
+    //   if (data.status == "error"){
+    //     console.log(data.error)
+    //   }
+    //   console.log(data)})
+    
+    // .catch((err)=>{
+    //   console.log(err)})
      }
-  
+  //  console.log(localStorage.getItem("vendorToken"));
+   console.log(regForm.token);
 
 
   return (
@@ -126,29 +151,13 @@ function Form() {
         </div>
         <div className="containerform2">
           <div style={{ height: "275px" }}>
-          <p className="zupp">Images <button>Add</button><input type="file" name="Add"/></p>
+          <p className="zupp">Images <button>Add</button><input type="file" name="Add" /></p>
 
             <div className="containerform2grid">
               <div style={{ border: "2px solid black" }}>
-                <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
+            <img  width={100} height={100} alt="img.jpg"/>   
               </div>
-              <div style={{ border: "2px solid black" }}>
-              <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
-              </div>
-              <div style={{ border: "2px solid black" }}>
-              <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
-              </div>
-              <div style={{ border: "2px solid black" }}>
-              <img src="../../../images/icons8-filter-64.png" alt="img.jpg"/>
-              </div>
-              <div style={{ border: "2px solid black" }}>
-                
-              </div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
+              
             </div>
           </div>
           <div>

@@ -9,13 +9,14 @@ function VendorProp() {
   const navigate = useNavigate();
   const [proposals , setProposals] = useState([]);
  const [vendorName , setVendorName] = useState("");
+ const [isDeleted, setIsdeleted] = useState(false)
  const getVendorData = () =>{
   fetch("/vendordata",{
     method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
     body:JSON.stringify({
-      token: localStorage.getItem("VendorToken"),
+      token: localStorage.getItem("vendorToken"),
     }
     )
 })
@@ -31,6 +32,33 @@ function VendorProp() {
 .catch((err)=>{
   console.log(err)})
  }
+// delete proposal
+
+async function deleteEvent(id){
+  let Id = {id};
+  setIsdeleted(true);
+  fetch("/deleteproposal",{
+    method:"DELETE",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    body:JSON.stringify(Id)
+    
+})
+.then((res)=>res.json())
+.then((data)=>{
+  alert("Proposal Deleted")
+  
+  
+  console.log(data);
+  
+ 
+ })
+ 
+
+.catch((err)=>{
+  console.log(err)})
+ }
+
 
  const getProposals =() =>{
   fetch("/proposals",{
@@ -49,11 +77,13 @@ function VendorProp() {
 
   useEffect(()=>{
         // getVendorData();
-         getProposals();
+        setIsdeleted(false);
+        getProposals();
+
         if(!localStorage.getItem("vendorToken")){
           navigate('/')
         }
-  },[])
+  },[isDeleted])
 
  
   return (
@@ -77,7 +107,7 @@ function VendorProp() {
         </div>
         <div className="container2">
           {proposals.map((item) => {
-            return <Events key={item._id}  id={item._id} data={item} />;
+            return <Events key={item._id}  id={item._id} data={item} delete={deleteEvent} />;
           })}
         </div>
       </div>
