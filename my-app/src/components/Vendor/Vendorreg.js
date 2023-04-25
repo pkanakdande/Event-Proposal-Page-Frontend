@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import Home from "../Home/Home";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Vendorreg() {
+  const navigate = useNavigate();
 
   const [regForm,setRegForm]=useState({
     name:"",
     email:"",
     contact:"",
     password:"",
-    conformpassword:""
+    conformpassword:"",
+   
   })
-
+  const {name, email, contact,password} = regForm;
   function updateData(e,propName){
     let temp=e.target.value
     setRegForm(data =>({
@@ -21,23 +24,39 @@ function Vendorreg() {
      }
 
      async function submitform(e){
-      e.preventDefault()
+     
       // const data=new FormData(e.target)
       console.log(regForm)
+      e.preventDefault();
+      if (regForm.password !== regForm.conformpassword)
+      { alert("password and conform password not match")}
 
-
-       fetch("http://localhost:4000/register",{
+     else
+       {
+      
+        fetch("/register",{
         method:"POST",
-        headers:{"content-type":"application/json","accept":"application/json"},
+        crossDoamin : true,
+        headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
         body:JSON.stringify(regForm)
         
     })
-    .then((data)=>data.json())
-    .then((responce)=>console.log(responce))
-    .catch((error)=>console.log(error.message))
-     }
+    .then((res)=>res.json())
+    .then((data)=>{
+      if (data.status == "ok")
+      {
+       alert("registration Successful")
+       navigate("/")
+      }
+      if (data.status == "error"){
+        alert(`${data.error}`)
+      }
+      console.log(data ,"VendorRegisterd")})
+    
+    .catch((err)=>{
+      console.log(err)})
+     }}
   
-
 
   return (
     <div>
@@ -62,31 +81,26 @@ function Vendorreg() {
             <h2>Register in your account</h2>
           </div>
           <div className="form">
-            <form method="post" onSubmit={submitform}>
+            <form method="post" style={{margin:'0px 0px 0px 0px'}} onSubmit={submitform}>
                 <div className="input">
                     {" "}
-                    <input type="text" placeholder="Name" name="name"
-                     onChange={e=>updateData(e,"name")} required/>
+                    <input type="text" placeholder="Name" style={{width:'86%'}}  onChange={e=>updateData(e,"name")} required/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="email" placeholder="Email" name="email" 
-                    onChange={e=>updateData(e,"email")} required/>
+                    <input type="email" placeholder="Email" style={{width:'86%'}} onChange={e=>updateData(e,"email")} required/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="text" placeholder="Contact" name="contact" 
-                    onChange={e=>updateData(e,"contact")} required/>
+                    <input type="number" placeholder="Contact" style={{width:'86%'}} onChange={e=>updateData(e,"contact")} required/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="password" placeholder="Password" name="password" 
-                    onChange={e=>updateData(e,"password")} required/>
+                    <input type="password" placeholder="Password" style={{width:'86%'}} onChange={e=>updateData(e,"password")} required/>
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="password" placeholder="Confirm Password" name="conformpassword"
-                     onChange={e=>updateData(e,"conformpassword")} required/>
+                    <input type="password" placeholder="Confirm Password" style={{width:'86%'}} onChange={e=>updateData(e,"conformpassword")} required/>
                 </div>
 
                 <div className="regfooter">

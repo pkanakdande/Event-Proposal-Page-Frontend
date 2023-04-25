@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Vendorhome.css";
 import Home from "../Home/Home";
 import Userhome from "../User/Userhome";
+import { useNavigate } from "react-router-dom";
 
 function VendorHome() {
 
- 
+  const navigate = useNavigate();
   const [formData,setFormData]=useState({
     email:"",
     password:""
-  })
+  });
  
-
+  const {email,password} = formData
   function updateData(e,propName){
     let temp=e.target.value
     setFormData(data =>({
@@ -32,16 +34,28 @@ function VendorHome() {
     // const data=new FormData(e.target)
     console.log(formData)
 
-
-     fetch("http://localhost:4000/user/login",{
+     
+     fetch("/login",{
       method:"POST",
       headers:{"content-type":"application/json","accept":"application/json"},
       body:JSON.stringify(formData)
       
   })
-  .then((data)=>data.json())
-  .then((responce)=>console.log(responce))
-  .catch((error)=>console.log(error.message))
+  .then((res)=>res.json())
+  .then((data)=>{
+     localStorage.setItem('vendorToken', data.data);
+     localStorage.setItem('vendorloggedIn',true);
+     if (data.status == "ok")
+     {
+      alert("login Successful")
+      navigate("/VendorProposal")
+     }if (data.status === "error"){
+      alert(`${data.error}`)
+    }
+     
+    console.log(data)})
+  .catch((err)=>{
+    console.log(err)})
    }
 
     return (<>
@@ -58,16 +72,14 @@ function VendorHome() {
             <h2>Sign in your Account</h2>
           </div>
           <div className="form">
-            <form method="post" onSubmit={submitted}>
+            <form method="post"  onSubmit={submitted}>
               <div className="input">
                 {" "}
-                <input type="name" name="email" placeholder="Phone/Email" 
-                 onChange={e=>updateData(e,"email")} />{" "}
+                <input type="email" placeholder="Phone/Email" style={{width:'300px'}} name="email" onChange={e=>updateData(e,"email")} required/>{" "}
               </div>
               <div className="input">
                 {" "}
-                <input type="password" placeholder="Password" name="password"
-                onChange={e=>updateData(e,"password")}  />{" "}
+                <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required />{" "}
               </div>
               <div className="forget">
                 {" "}
@@ -79,11 +91,11 @@ function VendorHome() {
                   {" "}
                   <Link to="/createvendoraccount" style={{textDecoration:'none'}}>Create Account</Link>{" "}
                 </div>
-                <Link to='/VendorProposal'>
+                {/* <Link to='/VendorProposal'> */}
                 <button className="button" type="submit">
                   SIGN IN
                 </button>
-                </Link>
+                {/* </Link> */}
               </div>
             </form>
           </div>

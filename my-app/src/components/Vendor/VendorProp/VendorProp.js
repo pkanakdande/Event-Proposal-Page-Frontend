@@ -1,40 +1,114 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Events from "./Events";
 import "./VendorProp.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../../../images/icons8-filter-64.png";
 
 function VendorProp() {
-  const events = [
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "20000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-  ];
+  const navigate = useNavigate();
+  const [proposals , setProposals] = useState([]);
+ const [vendorName , setVendorName] = useState("");
+ const [isDeleted, setIsdeleted] = useState(false)
+ const [query,setQuery]=useState("")
+ const [filtered,setFiltered]=useState([]);
+ const [activeGenre,setActiveGenre]=useState("all");
 
+//  console.log(proposals)
+//  console.log(filtered)
+//  console.log(activeGenre)
+function filter(){
+  let value=document.getElementById('filterlist').value.toLowerCase();
+  setActiveGenre(value)
+}
+
+
+///
+
+ const getVendorData = () =>{
+  fetch("/vendordata",{
+    method:"POST",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    body:JSON.stringify({
+      token: localStorage.getItem("vendorToken"),
+    })
+  })
+ .then((res)=>res.json())
+ .then((data) =>{
+   setProposals(data)
+   })
+   .catch((err)=>{
+   console.log(err)})
+  }
+ 
+// delete proposal
+
+async function deleteEvent(id){
+  let Id = {id};
+  setIsdeleted(true);
+  fetch("/deleteproposal",{
+    method:"DELETE",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    body:JSON.stringify(Id)
+    
+})
+.then((res)=>res.json())
+.then((data)=>{
+  alert("Proposal Deleted")
+  
+  
+  console.log(data);
+  
+ 
+ })
+ 
+
+.catch((err)=>{
+  console.log(err)})
+ }
+
+
+ const getProposals =() =>{
+  fetch("/proposals",{
+    method:"GET",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    
+})
+.then((res)=>res.json())
+.then((data) =>{
+  setProposals(data)
+  setFiltered(data)
+  })
+  .catch((err)=>{
+  console.log(err)})
+ }
+
+  useEffect(()=>{
+    console.log(activeGenre)
+        getVendorData();
+        setIsdeleted(false);
+        getProposals();
+        filter();
+
+        const filte=proposals.filter((item)=>{
+          if(activeGenre == "all"){
+            return proposals
+          }
+
+          return item.eventType.includes(activeGenre)
+        })
+        setFiltered(filte)
+
+        if(!localStorage.getItem("vendorToken")){
+          navigate('/')
+        }
+  },[isDeleted,activeGenre,filtered])
+
+ 
   return (
     <div>
       <Navbar />
@@ -45,18 +119,40 @@ function VendorProp() {
           </div>
           <div className="searchbar">
             <div className="searchimg"></div>
-            <input type="text" placeholder="Search Projects" />
+            <input
+              type="text"
+              placeholder="Search Projects"
+              onChange={(e) => setQuery(e.target.value)}
+            />
           </div>
           <div className="filter">
-            <div className="filimg"></div>
+            <div className="filimg">
+              {/* <img src="../../../images/icons8-filter-64.png"  alt="img.jpeg" style={{width:'20px'}} /> */}
+              <select
+              id="filterlist"
+                name="filter"
+                style={{ position: "relative", top: "6px", left: "20px",width:'24px',height:'35px',opacity:'0'}} onChange={filter}
+              >
+                <option value="all">All</option>
+                <option value="marriage">Marriage</option>
+                <option value="birthday">Birthday</option>
+              </select>
+            </div>
             <div className="create-btn">
-              <button><Link to='/createproposal' style={{textDecoration:'none',color:'white'}}>CREATE</Link></button>
+              <button>
+                <Link
+                  to="/createproposal"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  CREATE
+                </Link>
+              </button>
             </div>
           </div>
         </div>
         <div className="container2">
-          {events.map((item, i) => {
-            return <Events data={item} />;
+          {filtered.filter((item)=>item.eventName.toLowerCase().includes(query)).map((item) => {
+            return <Events proposals={proposals} setFiltered={setFiltered} key={item._id}  id={item._id} data={item} delete={deleteEvent} />;
           })}
         </div>
       </div>
