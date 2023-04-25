@@ -30,5 +30,6 @@
     letter-spacing: 0.72px;
     color: #081838;
     opacity: 1;
-    border: 2px solid black;
+    border: 2px solid rgb(219, 210, 210);
+    border-radius: 5px;
 }

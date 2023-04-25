@@ -2,7 +2,10 @@ import React from "react";
 import "./Proposaldetail.css";
 import UserNav from "./UserNav";
 
-function Proposaldetail() {
+function Proposaldetail(props) {
+  console.log(props)
+
+
   return (
     <>
       <UserNav />

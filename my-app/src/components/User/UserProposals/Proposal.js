@@ -2,10 +2,14 @@ import { useEffect, useState, navigate } from "react";
 import React from "react";
 import "./Proposal.css";
 import { Link } from "react-router-dom";
+import Proposaldetail from "./Proposaldetail";
 
 function Proposal(props) {
+  // function nextpage(props){
+  //   <Proposaldetail data={props}/>
+  // }
   
-  console.log("props : ",props);
+  // console.log("props : ",props);
   // const [vendor,setVendor]=useState([]);
 
   // const getVendordata= () =>{
@@ -38,16 +42,17 @@ function Proposal(props) {
   // <div className="userproposal">
   return (
     <>
-      {/* <div className='prop-img'>
-            <img src={props.data.image} alt='img.jpg'/>
-          </div> */}
-     
-
           <div className="userproposal">
-          <Link to="/Proposaldetail" style={{ textDecoration: "none" }}>
-            <div className="venname">{props.data.eventName}</div>
-            <div className="budge">{props.data.budget}</div>
-            <div className="locatin">{props.data.placeOfEvent}</div>
+          <div className='prop-img'>
+            <img src={props.data.image} alt='img.jpg' style={{width:'100%',height:'100%'}}/>
+          </div>
+          <Link to="/Proposaldetail" style={{ textDecoration: "none" }} >
+            <div className="venname" style={{margin: '0px 0px 0px 10px',
+    fontSize: '18px'}}>{props.data.eventName}</div>
+            <div className="budge" style={{fontSize: '13px',
+    margin: '0px 0px 0px 10px'}}>{props.data.budget}</div>
+            <div className="locatin" style={{marginLeft: '10px',
+    fontSize: '14px'}}>{props.data.placeOfEvent}</div>
           </Link>
           </div>
   
