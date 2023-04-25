@@ -1,9 +1,11 @@
-import { useEffect, useState,navigate } from 'react'
-import React from 'react'
-import './Proposal.css'
-import { Link } from 'react-router-dom'
+import { useEffect, useState, navigate } from "react";
+import React from "react";
+import "./Proposal.css";
+import { Link } from "react-router-dom";
 
-function Proposal({vendordata, proposaldata}) {
+function Proposal(props) {
+  
+  console.log("props : ",props);
   // const [vendor,setVendor]=useState([]);
 
   // const getVendordata= () =>{
@@ -25,28 +27,33 @@ function Proposal({vendordata, proposaldata}) {
   //     });
   // };
 
+  //   useEffect(()=>{
+  //     getVendordata();
+  //     // if( !localStorage.getItem("vendorToken") && !localStorage.getItem("userToken")){
+  //     //     navigate('/User')
+  //     //   }
+  // },[])
+  // console.log(props)
 
-//   useEffect(()=>{
-//     getVendordata();
-//     // if( !localStorage.getItem("vendorToken") && !localStorage.getItem("userToken")){
-//     //     navigate('/User')
-//     //   }
-// },[])
-// console.log(props)
-
-
+  // <div className="userproposal">
   return (
-    <div className='userproposal'>
-        {/* <div className='prop-img'>
+    <>
+      {/* <div className='prop-img'>
             <img src={props.data.image} alt='img.jpg'/>
-        </div> */}
-        <Link to='/Proposaldetail' style={{textDecoration:'none'}}>
-        <div className='venname'>{vendordata.name}</div>
-        <div className='budge'>{proposaldata.budget}</div>
-        <div className='locatin'>{proposaldata.placeOfEvent}</div>      
-        </Link>
-    </div>
-  )
+          </div> */}
+     
+
+          <div className="userproposal">
+          <Link to="/Proposaldetail" style={{ textDecoration: "none" }}>
+            <div className="venname">{props.data.eventName}</div>
+            <div className="budge">{props.data.budget}</div>
+            <div className="locatin">{props.data.placeOfEvent}</div>
+          </Link>
+          </div>
+  
+    
+  </>
+  );
 }
 
-export default Proposal
+export default Proposal;

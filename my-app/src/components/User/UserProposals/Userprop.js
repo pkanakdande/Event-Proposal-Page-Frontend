@@ -7,16 +7,16 @@ import { useNavigate } from "react-router-dom";
 
 function Userprop() {
     const navigate = useNavigate();
-    const [proposal,setProposal]=useState({})
-    const [vendor,setVendor]=useState([]);
+    const [proposal,setProposal]=useState([])
+    // const [vendor,setVendor]=useState([]);
 
   
     // console.log(proposal);
 
  
 
-    const getvendorProposaldata = () => {
-        fetch("/vendordataandproposal", {
+    const getProposaldata = () => {
+        fetch("/proposals", {
           method: "GET",
           crossDoamin: true,
           headers: {
@@ -33,11 +33,11 @@ function Userprop() {
             console.log(err);
           });
       };
-
+// console.log(proposal)
      
 
     useEffect(()=>{
-        getvendorProposaldata();
+        getProposaldata();
         if( !localStorage.getItem("vendorToken") && !localStorage.getItem("userToken")){
             navigate('/User')
           }
@@ -56,16 +56,23 @@ function Userprop() {
     <div>
       <UserNav logout={logout}/>
       <div className='userimg'></div>
+      <div id='selected'></div>
       <div className='proposalcontainer'>
 
         {/* {proposal?.vendordata && <div>Hello</div>} */}
-        {
-            proposal?.vendordata.map((item, index)=>{
+        {/* {
+            proposal?.map((item, index)=>{
                 return (
-                <div key={index}><Proposal vendordata={item} proposaldata={proposal?.proposaldata[index]} /></div>
+                <div key={index}><Proposal data={item} /></div>
                 )
             })
+        } */}
+        {
+          proposal.map((item,i)=>{
+            return <Proposal key={i} data={item}/>
+          })
         }
+        {/* <Proposal {...proposal}/> */}
         
       </div>
     </div>

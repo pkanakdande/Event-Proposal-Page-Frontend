@@ -1,53 +1,71 @@
 import React from "react";
 import "./Form.css";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
 function Form() {
   const navigate = useNavigate();
-
+  const [loading,setLoading] = useState(false);
+  const [cloudImage,setCloudImage] = useState("");
   const [regForm,setRegForm]=useState({
-    eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "",images : ""
-   
+    eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "",token: localStorage.getItem("vendorToken")
   })
-  
   function updateData(e,propName){
     let temp=e.target.value
     setRegForm(data =>({
      ...data,[propName]:temp
     }))
-    
      }
-
      async function submitform(e){
-     
-      // const data=new FormData(e.target)
-      console.log(regForm)
       e.preventDefault();
-        fetch("/createproposal",{
-        method:"POST",
-        crossDoamin : true,
-        headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
-        body:JSON.stringify(regForm)
-        
-    })
-    .then((res)=>res.json())
-    .then((data)=>{
-      if (data.status == "ok")
+      try{
+        const formData = new FormData();
+      console.log(regForm)
+      formData.append("image", cloudImage);
+            formData.append("eventName", regForm.eventName);
+            formData.append("placeOfEvent", regForm.placeOfEvent);
+            formData.append("proposalType", regForm.proposalType);
+            formData.append("eventType", regForm.eventType);
+            formData.append("budget", regForm.budget);
+            formData.append("fromDate", regForm.fromDate);
+            formData.append("toDate", regForm.toDate);
+            formData.append("foodPreference", regForm.foodPreference);
+            formData.append("description", regForm.description);
+            formData.append("events", regForm.events);
+            formData.append("token", regForm.token);
+       const res = await axios.post("/createproposal", formData);
+       if (res.data.status == "ok")
       {
-       alert("registration Successful")
+       alert("Proposal Created")
        navigate("/VendorProposal")
       }
-      if (data.status == "error"){
-        alert(`${data.error}`)
+      if (res.data.status == "error"){
+        alert(`${res.data.error}`)
       }
-      console.log(data ,"VendorRegisterd")})
-    
-    .catch((err)=>{
-      console.log(err)})
-     }
-
-
+      console.log(res.data ,"VendorRegisterd")
+      }  catch (error){
+         console.log(error)
+      }
+    }
+    //  const handleImageChange = (e) => {
+    //   setImage(e.target.files[0]);
+    // };
+    const uploadImage = async e => {
+      const files = e.target.files
+      const data = new FormData();
+      data.append('file',files[0])
+      data.append('upload_preset','events')
+      setLoading(true)
+      const res = await fetch("https://api.cloudinary.com/v1_1/dhryrs3lr/image/upload",
+      {
+        method :'POST',
+        body:data
+      })
+      const file = await res.json();
+      console.log(file);
+      setCloudImage(file.secure_url);
+      setLoading(false);
+    }
   return (
     <div className="form1">
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -125,27 +143,11 @@ function Form() {
         </div>
         <div className="containerform2">
           <div style={{ height: "275px" }}>
-          <p className="zupp">Images <button>Add</button><input type="file" name="Add"/></p>
-
+          <p className="zupp">Images <button>Add</button><input type="file" name="file" multiple onChange={uploadImage} /></p>
             <div className="containerform2grid">
               <div style={{ border: "2px solid black" }}>
-                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
+            <img  width={100} height={100} src={cloudImage} alt="img.jpg"/>
               </div>
-              <div style={{ border: "2px solid black" }}>
-                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
-              </div>
-              <div style={{ border: "2px solid black" }}>
-                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
-              </div>
-              <div style={{ border: "2px solid black" }}>
-                <img src="../../../images/icons8-filter-64.png" alt="img.jpg" />
-              </div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
-              <div style={{ border: "2px solid black" }}></div>
             </div>
           </div>
           <div>
@@ -157,11 +159,9 @@ function Form() {
             <input type="text" style={{ width: "525px", height: "116px" }} onChange={e=>updateData(e,"events")} />
           </div>
         </div>
-        <button style={{ margin: "20px 3px 0px 482px" }}>Add</button>
+        <button style={{margin: '20px 3px 0px 482px'}}>Add</button>
       </form>
     </div>
   );
   }
-
-
 export default Form;

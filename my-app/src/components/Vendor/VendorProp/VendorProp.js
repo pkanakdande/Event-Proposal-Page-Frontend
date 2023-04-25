@@ -8,74 +8,107 @@ import "../../../images/icons8-filter-64.png";
 
 function VendorProp() {
   const navigate = useNavigate();
-  const [proposals, setProposals] = useState([]);
-  const [vendorName, setVendorName] = useState("");
-  const [query, setQuery] = useState("");
-  const [filter,setFilter]=useState({
-    marriage:false,
-    birthday:false
-});
+  const [proposals , setProposals] = useState([]);
+ const [vendorName , setVendorName] = useState("");
+ const [isDeleted, setIsdeleted] = useState(false)
+ const [query,setQuery]=useState("")
+ const [filtered,setFiltered]=useState([]);
+ const [activeGenre,setActiveGenre]=useState("all");
+
+//  console.log(proposals)
+//  console.log(filtered)
+//  console.log(activeGenre)
+function filter(){
+  let value=document.getElementById('filterlist').value.toLowerCase();
+  setActiveGenre(value)
+}
 
 
+///
 
-
-
-  // console.log(proposals);
-  //  console.log(proposals.filter((item)=>item.eventName.toLowerCase().includes("ma")));
-  // console.log(filter.marriage==true)
-
-  const getVendorData = () => {
-    fetch("/vendordata", {
-      method: "POST",
-      crossDoamin: true,
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        token: localStorage.getItem("VendorToken"),
-      }),
+ const getVendorData = () =>{
+  fetch("/vendordata",{
+    method:"POST",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    body:JSON.stringify({
+      token: localStorage.getItem("vendorToken"),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setVendorName(data.data.name);
-        console.log(vendorName);
-      })
+  })
+ .then((res)=>res.json())
+ .then((data) =>{
+   setProposals(data)
+   })
+   .catch((err)=>{
+   console.log(err)})
+  }
+ 
+// delete proposal
 
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+async function deleteEvent(id){
+  let Id = {id};
+  setIsdeleted(true);
+  fetch("/deleteproposal",{
+    method:"DELETE",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    body:JSON.stringify(Id)
+    
+})
+.then((res)=>res.json())
+.then((data)=>{
+  alert("Proposal Deleted")
+  
+  
+  console.log(data);
+  
+ 
+ })
+ 
 
-  const getProposals = () => {
-    fetch("/proposals", {
-      method: "GET",
-      crossDoamin: true,
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProposals(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+.catch((err)=>{
+  console.log(err)})
+ }
 
-  useEffect(() => {
-    // getVendorData();
-    getProposals();
-    if (!localStorage.getItem("vendorToken")) {
-      navigate("/");
-    }
-  });
 
+ const getProposals =() =>{
+  fetch("/proposals",{
+    method:"GET",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    
+})
+.then((res)=>res.json())
+.then((data) =>{
+  setProposals(data)
+  setFiltered(data)
+  })
+  .catch((err)=>{
+  console.log(err)})
+ }
+
+  useEffect(()=>{
+    console.log(activeGenre)
+        getVendorData();
+        setIsdeleted(false);
+        getProposals();
+        filter();
+
+        const filte=proposals.filter((item)=>{
+          if(activeGenre == "all"){
+            return proposals
+          }
+
+          return item.eventType.includes(activeGenre)
+        })
+        setFiltered(filte)
+
+        if(!localStorage.getItem("vendorToken")){
+          navigate('/')
+        }
+  },[isDeleted,activeGenre,filtered])
+
+ 
   return (
     <div>
       <Navbar />
@@ -98,11 +131,11 @@ function VendorProp() {
               <select
               id="filterlist"
                 name="filter"
-                style={{ position: "relative", top: "6px", left: "20px",width:'24px',height:'35px' }}
+                style={{ position: "relative", top: "6px", left: "20px",width:'24px',height:'35px',opacity:'0'}} onChange={filter}
               >
-                {proposals.map((item)=>{
-                  return <option key={item._id} value={item.eventType}>{item.eventType}</option>
-                })}
+                <option value="all">All</option>
+                <option value="marriage">Marriage</option>
+                <option value="birthday">Birthday</option>
               </select>
             </div>
             <div className="create-btn">
@@ -118,11 +151,9 @@ function VendorProp() {
           </div>
         </div>
         <div className="container2">
-         {proposals
-            .filter((item) => item.eventName.toLowerCase().includes(query))
-            .map((item) => {
-              return <Events key={item._id} id={item._id} data={item} />;
-          })}   
+          {filtered.filter((item)=>item.eventName.toLowerCase().includes(query)).map((item) => {
+            return <Events proposals={proposals} setFiltered={setFiltered} key={item._id}  id={item._id} data={item} delete={deleteEvent} />;
+          })}
         </div>
       </div>
     </div>
