@@ -4,11 +4,10 @@ import UserNav from "./UserNav";
 import { useParams } from "react-router";
 
 function Proposaldetail(props) {
-  const [proposal,setProposal]=useState([])
+  const [proposal, setProposal] = useState([]);
   // console.log(props)
-  const {id}=useParams();
-  console.log(id)
-
+  const { id } = useParams();
+  console.log(id);
 
   const getProposaldata = () => {
     fetch(`/getproposal/${id}`, {
@@ -23,17 +22,16 @@ function Proposaldetail(props) {
       .then((res) => res.json())
       .then((data) => {
         setProposal(data.proposal);
-     
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  useEffect(()=>{
-   getProposaldata();
-  },[])
+  useEffect(() => {
+    getProposaldata();
+  }, []);
 
-  console.log(proposal?.vendorName)
+  console.log(proposal?.vendorName);
 
   return (
     <>
@@ -51,7 +49,7 @@ function Proposaldetail(props) {
                 background: "white",
                 color: "#006BD9",
                 border: "2px solid #006BD9",
-              }} 
+              }}
             >
               SELECT
             </button>
@@ -60,19 +58,18 @@ function Proposaldetail(props) {
         <div className="prop-details">
           <div style={{ display: "flex" }}>
             <div id="one">
-              <div className="one-img" style={{width: '295px',
-    height: '200px'}}>
-                <img
-                  src={proposal?.image}
-                  alt="img.jpg"
-                />
+              <div
+                className="one-img"
+                style={{ width: "295px", height: "200px" }}
+              >
+                <img src={proposal?.image} alt="img.jpg" />
                 <p
                   style={{
-                    fontweight: 'bold',
-    background: 'rgb(211, 199, 199)',
-    padding: '0px 20px',
-    position: 'relative',
-    top: '-14px'
+                    fontweight: "bold",
+                    background: "rgb(211, 199, 199)",
+                    padding: "0px 20px",
+                    position: "relative",
+                    top: "-14px",
                   }}
                 >
                   ID:{proposal?._id}
@@ -90,10 +87,12 @@ function Proposaldetail(props) {
               </div>
               <div className="one-date">
                 <b style={{ color: "gray", fontSize: "10px" }}>Start date</b>
-                &nbsp;&nbsp;<b style={{ fontSize: "11px" }}>{proposal?.fromDate}</b>
+                &nbsp;&nbsp;
+                <b style={{ fontSize: "11px" }}>{proposal?.fromDate ? proposal?.fromDate.split("T")[0]:proposal?.fromDate}</b>
                 &nbsp;&nbsp;&nbsp;
                 <b style={{ color: "gray", fontSize: "10px" }}>End date</b>
-                &nbsp;&nbsp;<b style={{ fontSize: "11px" }}>{proposal?.toDate}</b>
+                &nbsp;&nbsp;
+                <b style={{ fontSize: "11px" }}>{proposal?.toDate ? proposal?.toDate.split("T")[0] : proposal?.toDate}</b>
               </div>
               <div className="event-type">
                 <p style={{ color: "grey", fontSize: "13px" }}>Event Type</p>
@@ -151,7 +150,13 @@ function Proposaldetail(props) {
           <div style={{ display: "flex", position: "relative", top: "39px" }}>
             <div id="album">
               <div id="albumtext">My album</div>
-              <div id="four"><img src={proposal?.image} alt="img.jpg" style={{width:'100%',height:'100%'}}/></div>
+              <div id="four">
+                <img
+                  src={proposal?.image}
+                  alt="img.jpg"
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
               <div id="five"></div>
               <div id="six"></div>
               <div id="seven"></div>
@@ -201,7 +206,7 @@ function Proposaldetail(props) {
               </div>
             </div>
             <div id="eleven">
-            <p style={{ margin: "0px 25px 24px 12px" }}>
+              <p style={{ margin: "0px 25px 24px 12px" }}>
                 <b>Events</b>
               </p>
               <div

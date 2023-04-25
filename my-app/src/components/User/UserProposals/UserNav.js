@@ -9,7 +9,7 @@ function UserNav({logout}) {
         <b>LOGO</b>
       </div>
       <div className="name">
-        <b>User Name</b>
+        <b>{document.cookie.split("=")[1]}</b>
       </div>
       <div class="dropdown">
         <div className="imgven"></div>

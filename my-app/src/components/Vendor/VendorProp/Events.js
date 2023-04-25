@@ -33,11 +33,11 @@ function Events(props) {
           <p style={{ color: "#AAAAAA", lineHeight: "0pt", width: "82px" }}>
             From Date
           </p>
-          {props.data.fromDate}
+          {props.data.fromDate ? props.data.fromDate.split("T")[0] : props.data.fromDate}
         </div>
         <div className="todate">
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>To Date</p>
-          {props.data.toDate}
+          {props.data.toDate ? props.data.toDate.split("T")[0] : props.data.toDate}
         </div>
         <div className="budget">
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Budget</p>
