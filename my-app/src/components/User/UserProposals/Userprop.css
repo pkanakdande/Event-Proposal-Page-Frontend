@@ -8,8 +8,25 @@
     no-repeat padding-box;
   opacity: 0.85;
 }
+.selected {
+  position: relative;
+  top: 254px;
+  left: 150px;
+
+}
+
+.selectcontainer{
+ 
+  position: relative;
+  border: 2px solid black;
+  width: 200px;
+  height: 300px;
+  /* top: 254px;
+  left: 200px; */
+}
 
 .proposalcontainer{
+
     display: grid;
     justify-content: center;
     place-items: center;
@@ -18,8 +35,8 @@
     grid-template-rows: 217px;
     grid-template-columns: repeat(5,245px);
     grid-gap: 40px;
-    position: absolute;
-    top: 387px;
+    position: relative;
+    top: 300px;
 
 }
 

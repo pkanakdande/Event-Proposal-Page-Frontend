@@ -2,12 +2,37 @@ import React, { useEffect, useState } from "react";
 import "./Proposaldetail.css";
 import UserNav from "./UserNav";
 import { useParams } from "react-router";
+import { useContext } from "react"
+import { Context } from "./Context"
+import { useNavigate } from "react-router-dom";
+
 
 function Proposaldetail(props) {
   const [proposal, setProposal] = useState([]);
+  const { handleSelect} = useContext(Context);
+  const navigate = useNavigate();
   // console.log(props)
   const { id } = useParams();
   console.log(id);
+
+  const selectProposal = () =>{
+    fetch("/selectproposal",{
+      method:"POST",
+      crossDoamin : true,
+      headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+      body:JSON.stringify({
+        id:id,
+      })
+    })
+   .then((res)=>res.json())
+   .then((data) =>{
+      // console.log(data.data)
+      handleSelect(data.data)
+      navigate('/Userproposals')
+     })
+     .catch((err)=>{
+     console.log(err)})
+  }
 
   const getProposaldata = () => {
     fetch(`/getproposal/${id}`, {
@@ -22,6 +47,7 @@ function Proposaldetail(props) {
       .then((res) => res.json())
       .then((data) => {
         setProposal(data.proposal);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -45,6 +71,7 @@ function Proposaldetail(props) {
           </div>
           <div className="select-btn">
             <button
+              onClick={selectProposal}
               style={{
                 background: "white",
                 color: "#006BD9",

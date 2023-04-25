@@ -9,6 +9,7 @@ import VendorProp from "./components/Vendor/VendorProp/VendorProp";
 import Vencreateprop from "./components/Vendor/VendorCreateProp/Vencreateprop";
 import Userprop from "./components/User/UserProposals/Userprop";
 import Proposaldetail from "./components/User/UserProposals/Proposaldetail";
+import AppContext from "./components/User/UserProposals/Context"
 
 function App() {
       // const isVendorLoggedIn = localStorage.getItem('vendorloggedIn');
@@ -17,6 +18,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <AppContext>
         <Routes>
           <Route path="/" element={<Vendorhome />} />
           <Route path="/User" element={<Userhome/>}/>
@@ -27,6 +29,7 @@ function App() {
           <Route path='/Userproposals' element={<Userprop/>}/>
           <Route path="/Proposaldetail/:id" element={<Proposaldetail/>}/>
         </Routes>
+        </AppContext>
       </BrowserRouter>
     </>
   );
