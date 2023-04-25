@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Proposaldetail.css";
 import UserNav from "./UserNav";
+import { useParams } from "react-router";
 
 function Proposaldetail(props) {
-  console.log(props)
+  const [proposal,setProposal]=useState([])
+  // console.log(props)
+  const {id}=useParams();
+  console.log(id)
 
+
+  const getProposaldata = () => {
+    fetch(`/getproposal/${id}`, {
+      method: "GET",
+      crossDoamin: true,
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setProposal(data.proposal);
+     
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(()=>{
+   getProposaldata();
+  },[])
+
+  console.log(proposal?.vendorName)
 
   return (
     <>
@@ -31,39 +60,40 @@ function Proposaldetail(props) {
         <div className="prop-details">
           <div style={{ display: "flex" }}>
             <div id="one">
-              <div className="one-img">
+              <div className="one-img" style={{width: '295px',
+    height: '200px'}}>
                 <img
-                  src="../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg"
+                  src={proposal?.image}
                   alt="img.jpg"
                 />
                 <p
                   style={{
-                    fontWeight: "bold",
-                    background: "#d3c7c7",
-                    padding: "0px 20px",
-                    position: "relative",
-                    top: "169px",
+                    fontweight: 'bold',
+    background: 'rgb(211, 199, 199)',
+    padding: '0px 20px',
+    position: 'relative',
+    top: '-14px'
                   }}
                 >
-                  ID:001
+                  ID:{proposal?._id}
                 </p>
               </div>
               <div className="one-name">
                 <b style={{ color: "gray", fontSize: "13px" }}>Name</b>
                 &nbsp;&nbsp;
-                <b>VENDOR NAME</b>
+                <b>{proposal?.vendorName}</b>
               </div>
               <div className="one-email">
                 <b style={{ color: "gray", fontSize: "13px" }}>Email</b>
                 &nbsp;&nbsp;
-                <b>vendor@gmail.com</b>
+                <b>{proposal?.vendorEmail}</b>
               </div>
               <div className="one-date">
                 <b style={{ color: "gray", fontSize: "10px" }}>Start date</b>
-                &nbsp;&nbsp;<b style={{ fontSize: "11px" }}>12/01/2000</b>
+                &nbsp;&nbsp;<b style={{ fontSize: "11px" }}>{proposal?.fromDate}</b>
                 &nbsp;&nbsp;&nbsp;
                 <b style={{ color: "gray", fontSize: "10px" }}>End date</b>
-                &nbsp;&nbsp;<b style={{ fontSize: "11px" }}>14/01/2000</b>
+                &nbsp;&nbsp;<b style={{ fontSize: "11px" }}>{proposal?.toDate}</b>
               </div>
               <div className="event-type">
                 <p style={{ color: "grey", fontSize: "13px" }}>Event Type</p>
@@ -75,7 +105,7 @@ function Proposaldetail(props) {
                     color: "#006BD9",
                   }}
                 >
-                  Marriage
+                  {proposal?.eventType}
                 </p>
               </div>
               <div className="event-class">
@@ -114,14 +144,14 @@ function Proposaldetail(props) {
                   wordWrap: "break-word",
                 }}
               >
-                faffasfasfasfasfasfasfasfasfafafasfasfasfsafasfklaslgasklgasglasjgalkdgmaslkgnaskdgnaslkgnaslkgnaslkgnalksgnslakngaslgaskgnsalkgnaslkgnaslkgasnlaksngaslkgnasklgnaslgnlaskgnaslkgnaslgknaslkgnaslkgasnglknaskgnaslkgnaslkgnaslkgnaslkgnsalkgnsalkgnsalkgnkaslgnaslkgnasklglkasnglkasngklsankslagnsalknglkasngaslkgnaslkgnaslgk
+                {proposal?.foodPreference}
               </div>
             </div>
           </div>
           <div style={{ display: "flex", position: "relative", top: "39px" }}>
             <div id="album">
               <div id="albumtext">My album</div>
-              <div id="four"></div>
+              <div id="four"><img src={proposal?.image} alt="img.jpg" style={{width:'100%',height:'100%'}}/></div>
               <div id="five"></div>
               <div id="six"></div>
               <div id="seven"></div>
@@ -143,7 +173,7 @@ function Proposaldetail(props) {
                   }}
                 ></div>
                 <div>Contact1</div>
-                <div>+91 xxxxxxxxxx</div>
+                <div>+91 9543122221</div>
               </div>
               <div style={{ margin: "55px 12px 19px 45px" }}>
                 <div
@@ -155,7 +185,7 @@ function Proposaldetail(props) {
                   }}
                 ></div>
                 <div>Contact1</div>
-                <div>+91 xxxxxxxxxx</div>
+                <div>+91 7765781234</div>
               </div>
               <div style={{ margin: "55px 12px 19px 45px" }}>
                 <div
@@ -167,7 +197,7 @@ function Proposaldetail(props) {
                   }}
                 ></div>
                 <div>Contact1</div>
-                <div>+91 xxxxxxxxxx</div>
+                <div>+91 9876345667</div>
               </div>
             </div>
             <div id="eleven">
@@ -181,7 +211,7 @@ function Proposaldetail(props) {
                   wordWrap: "break-word",
                 }}
               >
-                faffasfasfasfasfasfasfasfasfafafasfasfasfsafasfklaslgasklgasglasjgalkdgmaslkgnaskdgnaslkgnaslkgnaslkgnalksgnslakngaslgaskgnsalkgnaslkgnaslkgasnlaksngaslkgnasklgnaslgnlaskgnaslkgnaslgknaslkgnaslkgasnglknaskgnaslkgnaslkgnaslkgnaslkgnsalkgnsalkgnsalkgnkaslgnaslkgnasklglkasnglkasngklsankslagnsalknglkasngaslkgnaslkgnaslgk
+                {proposal?.events}
               </div>
             </div>
           </div>

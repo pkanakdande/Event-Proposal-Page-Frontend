@@ -9,12 +9,13 @@ import "../../../images/icons8-filter-64.png";
 function VendorProp() {
   const navigate = useNavigate();
   const [proposals , setProposals] = useState([]);
- const [vendorName , setVendorName] = useState("");
+//  const [vendorName , setVendorName] = useState("");
  const [isDeleted, setIsdeleted] = useState(false)
  const [query,setQuery]=useState("")
  const [filtered,setFiltered]=useState([]);
  const [activeGenre,setActiveGenre]=useState("all");
 
+ console.log(document.cookie.split("=")[1])
 //  console.log(proposals)
 //  console.log(filtered)
 //  console.log(activeGenre)
@@ -88,11 +89,16 @@ async function deleteEvent(id){
  }
 
   useEffect(()=>{
-    console.log(activeGenre)
-        getVendorData();
-        setIsdeleted(false);
+    // console.log(activeGenre)
+        // getVendorData();
+        // setIsdeleted(false);
         getProposals();
-        filter();
+        // filter();
+
+        
+  },[isDeleted])
+
+  useEffect(()=>{
 
         const filte=proposals.filter((item)=>{
           if(activeGenre == "all"){
@@ -106,7 +112,8 @@ async function deleteEvent(id){
         if(!localStorage.getItem("vendorToken")){
           navigate('/')
         }
-  },[isDeleted,activeGenre,filtered])
+  },[activeGenre])
+
 
  
   return (

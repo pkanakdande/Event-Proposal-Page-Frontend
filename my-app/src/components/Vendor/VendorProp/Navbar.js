@@ -3,7 +3,8 @@ import "./VendorProp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-function Navbar( ) {
+function Navbar(props) {
+  // console.log(props)
   const navigate = useNavigate();
   const logout=()=> {
     localStorage.removeItem('vendorToken');
@@ -17,7 +18,7 @@ function Navbar( ) {
         <b>LOGO</b>
       </div>
       <div className="name">
-        <b>Vendor Name</b>
+        <b>{document.cookie.split("=")[1]}</b>
       </div>
       <div class="dropdown">
         <div className="imgven"></div>

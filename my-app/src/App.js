@@ -25,7 +25,7 @@ function App() {
           <Route path="/VendorProposal" element={<VendorProp/>}/>
           <Route path='/createproposal' element={<Vencreateprop/>}/>
           <Route path='/Userproposals' element={<Userprop/>}/>
-          <Route path="/Proposaldetail" element={<Proposaldetail/>}/>
+          <Route path="/Proposaldetail/:id" element={<Proposaldetail/>}/>
         </Routes>
       </BrowserRouter>
     </>

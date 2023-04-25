@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import UserNav from './UserNav';
 import Proposal from './Proposal';
 import { useNavigate } from "react-router-dom";
-import Proposaldetail from './Proposaldetail';
 
 
 
@@ -70,7 +69,6 @@ function Userprop() {
         } */}
         {
           proposal.map((item,i)=>{
-            <Proposaldetail key={i} data={item}/>
             return <Proposal key={i} data={item}/>
           })
         }

@@ -46,8 +46,8 @@
   border-image: initial;
   width: 86px;
   height: 80px;
-  background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
-    padding-box;
+  /* background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
+    padding-box; */
   border-radius: 2px;
   opacity: 1;
 }
@@ -62,8 +62,8 @@
   border-image: initial;
   width: 86px;
   height: 80px;
-  background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
-    padding-box;
+  /* background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
+    padding-box; */
   border-radius: 2px;
   opacity: 1;
 }
@@ -78,8 +78,8 @@
   border-image: initial;
   width: 86px;
   height: 80px;
-  background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
-    padding-box;
+  /* background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
+    padding-box; */
   border-radius: 2px;
   opacity: 1;
 }
@@ -94,8 +94,8 @@
   border-image: initial;
   width: 86px;
   height: 80px;
-  background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
-    padding-box;
+  /* background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
+    padding-box; */
   border-radius: 2px;
   opacity: 1;
 }
@@ -110,8 +110,8 @@
   border-image: initial;
   width: 86px;
   height: 80px;
-  background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
-    padding-box;
+  /* background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
+    padding-box; */
   border-radius: 2px;
   opacity: 1;
 }
@@ -125,8 +125,8 @@
   border-image: initial;
   width: 86px;
   height: 80px;
-  background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
-    padding-box;
+  /* background: transparent url("../../../images/icons8-filter-64.png") 0% 0% no-repeat
+    padding-box; */
   border-radius: 2px;
   opacity: 1;
 }
@@ -181,28 +181,29 @@
 
 .one-name {
   position: relative;
-  top: 160px;
+  top: 25px;
   left: 18px;
+
 }
 
 .one-email {
   position: relative;
-  top: 160px;
-  left: 18px;
+    top: 22px;
+    left: 18px;
 }
 
 .one-date {
   position: relative;
-  top: 160px;
-  left: 18px;
+    top: 23px;
+    left: 18px;
 }
 .event-type {
   position: relative;
-  top: 168px;
+  top: 26px;
   left: 19px;
 }
 .event-class {
   position: relative;
-  top: 104px;
+  top: -36px;
   left: 179px;
 }

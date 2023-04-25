@@ -6,6 +6,7 @@ import deleteIcon from "../../../images/bin.jpg";
 import { useNavigate } from "react-router-dom";
 
 function Events(props) {
+  // console.log(props)
   const navigate = useNavigate();
 
   return (
