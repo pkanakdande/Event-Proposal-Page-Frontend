@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import UserNav from './UserNav';
-import Proposal from './Proposal';
+import React, { useEffect, useState } from "react";
+import UserNav from "./UserNav";
+import Proposal from "./Proposal";
+import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react"
-import { Context } from "./Context"
-
-
+import { useContext } from "react";
+import { Context } from "./Context";
 
 function Userprop() {
   const navigate = useNavigate();
-  const [proposal, setProposal] = useState([])
-  const { select } = useContext(Context)
+  const [proposal, setProposal] = useState([]);
+  const { select } = useContext(Context);
   // const [vendor,setVendor]=useState([]);
-  console.log(typeof(select)=="object");
-
-
-
- 
-
-
+  console.log(select.length===0 ? "false" : "true");
 
   const getProposaldata = () => {
     fetch("/proposals", {
@@ -40,59 +33,99 @@ function Userprop() {
   };
   // console.log(proposal)
 
-
   useEffect(() => {
     getProposaldata();
-    if (!localStorage.getItem("vendorToken") && !localStorage.getItem("userToken")) {
-      navigate('/User')
+    if (
+      !localStorage.getItem("vendorToken") &&
+      !localStorage.getItem("userToken")
+    ) {
+      navigate("/User");
     }
-  }, [])
-
+  }, []);
 
   const logout = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userloggedIn');
-    navigate('/User')
-  }
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userloggedIn");
+    navigate("/User");
+  };
 
-
-
-  return (<>
-    <div>
-      <UserNav logout={logout} />
-      <div className='userimg'></div>
-      <div >
-        {(typeof (select) == "object") ?
-          <div>
-            <div className='selected'>
-              <p style={{
-                fontsize: '20px',
-                position: "relative",
-                top: "254px",
-                left: "200px"
-              }}>Selected</p>
-              <div className='selectcontainer' ></div>
+  return (
+    <>
+      <div>
+        <UserNav logout={logout} />
+        <div className="userimg"></div>
+        <div>
+          {!(select.length===0) ? (
+            <div>
+              <div className="selected">
+                <p
+                  style={{
+                    fontsize: "20px",
+                    position: "relative",
+                    top: "0px",
+                    left: "0px",
+                  }}
+                >
+                  Selected
+                </p>
+                <div className="selectcontainer">
+                  <div className="userproposal">
+                    <div className="prop-img">
+                      <img
+                        src={select.image}
+                        alt=""
+                        style={{ width: "100%", height: "100%" }}
+                      />
+                    </div>
+                    <Link
+                      to={`/Proposaldetail/${select._id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <div
+                        className="venname"
+                        style={{ margin: "0px 0px 0px 10px", fontSize: "18px" }}
+                      >
+                        {select.eventName}
+                      </div>
+                      <div
+                        className="budge"
+                        style={{ fontSize: "13px", margin: "0px 0px 0px 10px" }}
+                      >
+                        {select.budget}
+                      </div>
+                      <div
+                        className="locatin"
+                        style={{ marginLeft: "10px", fontSize: "14px" }}
+                      >
+                        {select.placeOfEvent}
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <p style={{ position: "relative", top: "288px", left: "154px" }}>
+                Proposals
+              </p>
+              <div className="proposalcontainer">
+                {proposal.map((item, i) => {
+                  return <Proposal key={i} data={item} />;
+                })}{" "}
+              </div>{" "}
             </div>
-
-            <div className='proposalcontainer'>
-              {
-                proposal.map((item, i) => {
-                  return <Proposal key={i} data={item} />
-                })
-              } </div> </div> : <div>
-            {
-              proposal.map((item, i) => {
-                return <Proposal key={i} data={item} />
-              })
-            }
-          </div>
-
-          }
-      </div> 
-
-    </div>
-  </>
-  )
+          ) : (
+            <div>
+              <p style={{ position: "relative", top: "288px", left: "154px" }}>Proposals</p>
+            <div className="proposalcontainer">
+              {proposal.map((item, i) => {
+                return <Proposal key={i} data={item} />;
+              })}
+            </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default Userprop
+export default Userprop;
