@@ -11,7 +11,7 @@ function Userprop() {
   const [proposal, setProposal] = useState([]);
   const { select } = useContext(Context);
   // const [vendor,setVendor]=useState([]);
-  console.log(select.length===0 ? "false" : "true");
+  // console.log(select.length===0 ? "false" : "true");
 
   const getProposaldata = () => {
     fetch("/proposals", {
