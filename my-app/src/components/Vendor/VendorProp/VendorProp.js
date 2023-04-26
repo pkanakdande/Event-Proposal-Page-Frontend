@@ -28,7 +28,7 @@ function filter(){
 ///
 
  const getVendorData = () =>{
-  fetch("/vendordata",{
+  fetch("https://backend-event-proposal.onrender.com/vendordata",{
     method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
@@ -49,7 +49,7 @@ function filter(){
 async function deleteEvent(id){
   let Id = {id};
   setIsdeleted(true);
-  fetch("/deleteproposal",{
+  fetch("https://backend-event-proposal.onrender.com/deleteproposal",{
     method:"DELETE",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
@@ -73,7 +73,7 @@ async function deleteEvent(id){
 
 
  const getProposals =() =>{
-  fetch("/proposals",{
+  fetch("https://backend-event-proposal.onrender.com/proposals",{
     method:"GET",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
@@ -101,7 +101,7 @@ async function deleteEvent(id){
   useEffect(()=>{
 
         const filte=proposals.filter((item)=>{
-          if(activeGenre == "all"){
+          if(activeGenre === "all"){
             return proposals
           }
 

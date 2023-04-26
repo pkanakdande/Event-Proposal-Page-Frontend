@@ -35,7 +35,7 @@ function Proposaldetail(props) {
   }
 
   const getProposaldata = () => {
-    fetch(`/getproposal/${id}`, {
+    fetch(`https://backend-event-proposal.onrender.com/getproposal/${id}`, {
       method: "GET",
       crossDoamin: true,
       headers: {
