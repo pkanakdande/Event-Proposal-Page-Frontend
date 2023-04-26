@@ -10,8 +10,31 @@ function Userprop() {
   const navigate = useNavigate();
   const [proposal, setProposal] = useState([]);
   const { select } = useContext(Context);
+  // const [getselected , setGetSelected] = useState([]);
   // const [vendor,setVendor]=useState([]);
-  console.log(select.length===0 ? "false" : "true");
+  // console.log(select.length===0 ? "false" : "true");
+//   console.log(select._id)
+//  console.log(getselected)
+  // const selectedProposal = ()=>{
+  //   fetch(`/getselectedproposals/${select._id}`, {
+  //     method: "GET",
+  //     crossDoamin: true,
+  //     headers: {
+  //       "content-type": "application/json",
+  //       accept: "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //     setGetSelected(data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+  
 
   const getProposaldata = () => {
     fetch("/proposals", {
@@ -32,8 +55,14 @@ function Userprop() {
       });
   };
   // console.log(proposal)
+  // useEffect(() => {
+  //   selectedProposal();
+   
+  // }, [select]);
+
 
   useEffect(() => {
+    // selectedProposal();
     getProposaldata();
     if (
       !localStorage.getItem("vendorToken") &&
@@ -43,16 +72,12 @@ function Userprop() {
     }
   }, []);
 
-  const logout = () => {
-    localStorage.removeItem("userToken");
-    localStorage.removeItem("userloggedIn");
-    navigate("/User");
-  };
+ 
 
   return (
     <>
       <div>
-        <UserNav logout={logout} />
+        <UserNav  />
         <div className="userimg"></div>
         <div>
           {!(select.length===0) ? (
