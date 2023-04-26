@@ -26,7 +26,7 @@ function Userhome() {
     console.log(formData)
 
      
-     fetch("/user/login",{
+     fetch("https://backend-event-proposal.onrender.com/user/login",{
       method:"POST",
       headers:{"content-type":"application/json","accept":"application/json"},
       body:JSON.stringify(formData)

@@ -35,7 +35,7 @@ function VendorHome() {
     console.log(formData)
 
      
-     fetch("/login",{
+     fetch("https://backend-event-proposal.onrender.com/login",{
       method:"POST",
       headers:{"content-type":"application/json","accept":"application/json"},
       body:JSON.stringify(formData)
