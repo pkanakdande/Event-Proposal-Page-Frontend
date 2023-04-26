@@ -55,6 +55,11 @@ function Proposaldetail(props) {
   };
   useEffect(() => {
     getProposaldata();
+    if (
+      !localStorage.getItem("userToken")
+    ) {
+      navigate("/User");
+    }
   }, []);
 
   console.log(proposal?.vendorName);
@@ -156,7 +161,10 @@ function Proposaldetail(props) {
                   wordWrap: "break-word",
                 }}
               >
-                faffasfasfasfasfasfasfasfasfafafasfasfasfsafasfklaslgasklgasglasjgalkdgmaslkgnaskdgnaslkgnaslkgnaslkgnalksgnslakngaslgaskgnsalkgnaslkgnaslkgasnlaksngaslkgnasklgnaslgnlaskgnaslkgnaslgknaslkgnaslkgasnglknaskgnaslkgnaslkgnaslkgnaslkgnsalkgnsalkgnsalkgnkaslgnaslkgnasklglkasnglkasngklsankslagnsalknglkasngaslkgnaslkgnaslgk
+                When organizing an event, you're confronted with many decisions, but choosing the right venue and location is the one decision that will have the largest impact on your event. Everything from the date of the event, speaker lineups, catering options, and attendees experience depend on the event venue and location you select.
+               <p>The earlier the better. Once you have a good understanding of the following 3 factors, you can begin your search for a venue: budget, estimated event size, and space requirements.
+
+Book a venue at least 8 months in advance so that you will have enough time to plan other critical things, such as securing great speakers, creating an event program and website, starting ticket sales, engaging with attendees, and more.</p>
               </div>
             </div>
             <div id="three">
